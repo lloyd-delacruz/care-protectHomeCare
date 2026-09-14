@@ -1,0 +1,274 @@
+/* ============================================
+   Service page hero — image fades toward the text.
+   Shared by PT / OT / Speech pages.
+   Each service supplies its own background tint via a modifier class,
+   and the fade mask carries the photo INTO that tint on its left edge.
+   ============================================ */
+
+.svc-hero {
+  --svc-bg: #F3EDDE;          /* fallback cream — overridden by modifier */
+  --svc-ink: #0F221D;
+  --svc-accent: #4F8A78;
+
+  position: relative;
+  background: var(--svc-bg);
+  color: var(--svc-ink);
+  overflow: hidden;
+  isolation: isolate;
+}
+
+/* Per-service warm floors — the mask fades the photograph into this exact colour */
+.svc-hero--pt { --svc-bg: #E7EBE0; }   /* sage mist   — Physical Therapy */
+.svc-hero--ot { --svc-bg: #F1E8D6; }   /* warm cream  — Occupational Therapy */
+.svc-hero--sp { --svc-bg: #F3E4DA; }   /* soft blush  — Speech Therapy */
+
+/* Very restrained atmosphere so the flat tint doesn't feel plastic */
+.svc-hero::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background-image:
+    radial-gradient(ellipse 60% 40% at 10% 100%, rgba(18, 63, 53, 0.06), transparent 60%),
+    radial-gradient(ellipse 40% 60% at 100% 0%,  rgba(18, 63, 53, 0.04), transparent 60%);
+  pointer-events: none;
+  z-index: 0;
+}
+
+.svc-hero__inner {
+  position: relative;
+  z-index: 2;
+  min-height: 62vh;
+  display: grid;
+  grid-template-columns: 1fr;
+  align-items: end;
+  padding-top: 48px;
+  padding-bottom: 48px;
+}
+@media (min-width: 900px) {
+  .svc-hero__inner {
+    min-height: 74vh;
+    padding-top: 88px;
+    padding-bottom: 88px;
+    align-items: center;
+  }
+}
+
+/* Copy column */
+.svc-hero__copy {
+  max-width: 620px;
+}
+@media (min-width: 900px) {
+  .svc-hero__copy { max-width: 540px; }
+}
+
+/* Eyebrow — small caps kicker with a hairline rule */
+.svc-hero .eyebrow {
+  display: inline-flex;
+  align-items: center;
+  gap: 12px;
+  font-family: var(--font-sans);
+  font-size: 0.72rem;
+  font-weight: 600;
+  letter-spacing: 0.22em;
+  color: var(--svc-accent);
+  text-transform: uppercase;
+  margin: 0 0 24px;
+}
+.svc-hero .eyebrow::before {
+  content: '';
+  width: 28px;
+  height: 1.5px;
+  background: currentColor;
+  border-radius: 1px;
+}
+
+.svc-hero h1 {
+  font-family: var(--font-display);
+  font-weight: 500;
+  font-size: clamp(2.25rem, 4.5vw + 0.5rem, 3.8rem);
+  line-height: 1.05;
+  letter-spacing: -0.025em;
+  color: var(--svc-ink);
+  margin: 0 0 24px;
+  max-width: 16ch;
+}
+.svc-hero h1 em {
+  font-style: italic;
+  font-weight: 400;
+  color: var(--svc-accent);
+}
+
+.svc-hero__lede {
+  font-size: clamp(1rem, 1vw + 0.5rem, 1.1rem);
+  line-height: 1.7;
+  color: #3A4B44;
+  max-width: 46ch;
+  margin: 0 0 32px;
+}
+
+.svc-hero__ctas {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 16px 28px;
+}
+.svc-hero__cta {
+  padding: 14px 28px;
+  min-height: 48px;
+  border-radius: 999px;
+  font-size: 0.95rem;
+}
+.svc-hero__link {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  color: var(--svc-ink);
+  font-family: var(--font-sans);
+  font-weight: 500;
+  font-size: 0.92rem;
+  padding: 6px 0;
+  border-bottom: 1px solid rgba(15, 34, 29, 0.35);
+  transition: color 220ms var(--ease-out), border-color 220ms var(--ease-out), gap 220ms var(--ease-out);
+}
+.svc-hero__link:hover {
+  color: var(--svc-accent);
+  border-bottom-color: var(--svc-accent);
+  gap: 12px;
+}
+
+/* --------- Image + directional fade --------- */
+.svc-hero__figure {
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  margin: 0;
+  pointer-events: none;
+  overflow: hidden;
+}
+.svc-hero__figure img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center;
+  border-radius: 0;
+  box-shadow: none;
+}
+
+/* Mobile — image sits behind copy as a low-intensity backdrop that fades from top to bottom
+   so faces stay near the top and text sits on the clean floor. */
+.svc-hero__figure {
+  opacity: 0.28;
+  -webkit-mask-image: linear-gradient(180deg, rgba(0,0,0,1) 0%, rgba(0,0,0,0.85) 28%, rgba(0,0,0,0) 78%);
+          mask-image: linear-gradient(180deg, rgba(0,0,0,1) 0%, rgba(0,0,0,0.85) 28%, rgba(0,0,0,0) 78%);
+}
+.svc-hero__figure img { object-position: 50% 22%; }
+
+/* Desktop — image occupies right half, its LEFT edge dissolves into the section tint.
+   The mask goes from transparent on the left (nearest the text) to fully opaque on the right. */
+@media (min-width: 900px) {
+  .svc-hero__figure {
+    left: auto;
+    right: 0;
+    top: 0;
+    bottom: 0;
+    width: 58%;
+    opacity: 1;
+    -webkit-mask-image: linear-gradient(90deg,
+      rgba(0,0,0,0) 0%,
+      rgba(0,0,0,0.12) 10%,
+      rgba(0,0,0,0.65) 32%,
+      rgba(0,0,0,1) 60%);
+            mask-image: linear-gradient(90deg,
+      rgba(0,0,0,0) 0%,
+      rgba(0,0,0,0.12) 10%,
+      rgba(0,0,0,0.65) 32%,
+      rgba(0,0,0,1) 60%);
+  }
+  .svc-hero__figure img {
+    /* Keep subject away from the fading left edge */
+    object-position: 74% 42%;
+  }
+}
+@media (min-width: 1280px) {
+  .svc-hero__figure { width: 54%; }
+  .svc-hero__figure img { object-position: 68% 42%; }
+}
+
+/* ============================================
+   Focus areas grid — 3-column on desktop
+   ============================================ */
+.focus-grid { gap: 28px; }
+@media (min-width: 900px) { .focus-grid { grid-template-columns: repeat(3, 1fr); } }
+
+.focus-item {
+  display: grid;
+  grid-template-columns: 44px 1fr;
+  gap: 16px;
+  align-items: start;
+}
+.focus-item__icon {
+  width: 44px; height: 44px;
+  border-radius: 12px;
+  background: var(--cream-100);
+  color: var(--brand-forest);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+}
+.focus-item h3 {
+  font-family: var(--font-sans);
+  font-size: 1rem;
+  font-weight: 600;
+  color: var(--ink-900);
+  margin: 4px 0 4px;
+  letter-spacing: -0.005em;
+}
+.focus-item p {
+  color: var(--ink-500);
+  font-size: 0.92rem;
+  margin: 0;
+}
+
+/* Two-column callout */
+.two-col {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 32px;
+  align-items: center;
+}
+@media (min-width: 900px) {
+  .two-col { grid-template-columns: 1.5fr 1fr; gap: 48px; }
+}
+.callout {
+  background: #fff;
+  border-radius: var(--radius-md);
+  padding: 24px 28px;
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  border: 1px solid var(--line-soft);
+  box-shadow: var(--shadow-soft);
+}
+.callout__icon {
+  width: 44px; height: 44px;
+  border-radius: 999px;
+  background: var(--panel-blush);
+  color: var(--rust);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+.callout p { margin: 0; color: var(--ink-900); font-size: 1rem; }
+
+/* Who cards */
+.who-card {
+  background: #fff;
+  border-radius: var(--radius-md);
+  padding: 28px;
+  border: 1px solid var(--line-soft);
+  color: var(--brand-forest);
+  height: 100%;
+}
+.who-card h3 { font-size: 1.15rem; margin: 12px 0 6px; }
+.who-card p  { color: var(--ink-500); font-size: 0.95rem; margin: 0; }

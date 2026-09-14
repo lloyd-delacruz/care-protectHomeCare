@@ -1,0 +1,25 @@
+.cta-strip {
+  background: var(--brand-forest);
+  color: #fff;
+  padding: 48px 0;
+}
+.cta-strip__inner {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+  align-items: flex-start;
+}
+@media (min-width: 720px) {
+  .cta-strip__inner { flex-direction: row; align-items: center; justify-content: space-between; gap: 40px; }
+}
+.cta-strip h2 {
+  color: #fff;
+  font-size: clamp(1.5rem, 2vw + 0.5rem, 2.2rem);
+  margin-bottom: 6px;
+}
+.cta-strip p {
+  color: rgba(255,255,255,0.75);
+  margin: 0;
+  max-width: 46ch;
+}
+.cta-strip__btn { flex-shrink: 0; }

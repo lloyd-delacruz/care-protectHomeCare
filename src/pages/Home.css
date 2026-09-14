@@ -1,0 +1,289 @@
+/* ============================================
+   Homepage Hero — editorial, deep-evergreen palette
+   ============================================ */
+.home-hero {
+  --hero-bg: #F5EFE1;   /* warm cream floor */
+  --hero-fg: #0F221D;   /* deep evergreen ink */
+  --hero-accent: #4F8A78;
+
+  position: relative;
+  background: var(--hero-bg);
+  color: var(--hero-fg);
+  overflow: hidden;
+  isolation: isolate;
+}
+
+/* Very subtle grain to keep the flat cream from feeling plastic */
+.home-hero::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background-image: radial-gradient(circle at 12% 80%, rgba(18, 63, 53, 0.06), transparent 60%),
+                    radial-gradient(circle at 90% 0%, rgba(233, 214, 189, 0.6), transparent 55%);
+  pointer-events: none;
+  z-index: 0;
+}
+
+.home-hero__inner {
+  position: relative;
+  z-index: 2;
+  min-height: 72vh;
+  display: grid;
+  grid-template-columns: 1fr;
+  align-items: end;
+  padding-top: 56px;
+  padding-bottom: 56px;
+}
+@media (min-width: 900px) {
+  .home-hero__inner {
+    min-height: 82vh;
+    grid-template-columns: minmax(0, 1fr);
+    padding-top: 96px;
+    padding-bottom: 96px;
+    align-items: center;
+  }
+}
+
+/* Copy column — width-constrained on desktop so the image can breathe */
+.home-hero__copy {
+  max-width: 640px;
+}
+@media (min-width: 900px) {
+  .home-hero__copy { max-width: 560px; }
+}
+
+/* Eyebrow: tiny, sans, uppercase, a thin sage rule */
+.home-hero .eyebrow {
+  display: inline-flex;
+  align-items: center;
+  gap: 12px;
+  font-size: 0.72rem;
+  letter-spacing: 0.24em;
+  color: var(--hero-accent);
+  margin: 0 0 28px;
+  text-transform: uppercase;
+  font-weight: 600;
+}
+.eyebrow__mark {
+  display: inline-block;
+  width: 28px;
+  height: 1.5px;
+  background: currentColor;
+  border-radius: 1px;
+}
+
+/* Editorial headline */
+.home-hero h1 {
+  font-family: var(--font-display);
+  font-weight: 400;
+  font-size: clamp(2.5rem, 6vw, 4.6rem);
+  line-height: 1.02;
+  letter-spacing: -0.035em;
+  color: var(--hero-fg);
+  margin: 0 0 28px;
+  max-width: 15ch;
+}
+.home-hero h1 em {
+  font-style: italic;
+  font-weight: 400;
+  color: var(--hero-accent);
+}
+.hide-sm { display: none; }
+@media (min-width: 900px) { .hide-sm { display: inline; } }
+
+.home-hero__lede {
+  font-size: clamp(1rem, 1.1vw + 0.5rem, 1.1rem);
+  line-height: 1.7;
+  color: #3A4B44;
+  max-width: 46ch;
+  margin: 0 0 40px;
+}
+
+.home-hero__ctas {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 16px 28px;
+  margin-bottom: 56px;
+}
+.home-hero__cta {
+  padding: 14px 28px;
+  min-height: 48px;
+  border-radius: 999px;
+  font-size: 0.95rem;
+  letter-spacing: 0.01em;
+}
+.home-hero__link {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  color: var(--hero-fg);
+  font-weight: 500;
+  font-size: 0.92rem;
+  padding: 6px 0;
+  border-bottom: 1px solid rgba(15, 34, 29, 0.35);
+  transition: color 220ms var(--ease-out), border-color 220ms var(--ease-out), gap 220ms var(--ease-out);
+}
+.home-hero__link:hover {
+  color: var(--hero-accent);
+  border-bottom-color: var(--hero-accent);
+  gap: 12px;
+}
+
+/* Meta list — index numbers + service names, editorial "table of contents" feel */
+.home-hero__meta {
+  list-style: none;
+  padding: 24px 0 0;
+  margin: 0;
+  border-top: 1px solid rgba(15, 34, 29, 0.14);
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 10px;
+  max-width: 460px;
+}
+@media (min-width: 560px) {
+  .home-hero__meta { grid-template-columns: repeat(3, 1fr); gap: 24px; }
+}
+.home-hero__meta li {
+  font-size: 0.82rem;
+  font-weight: 500;
+  color: var(--hero-fg);
+  display: flex;
+  align-items: baseline;
+  gap: 10px;
+  letter-spacing: 0.01em;
+}
+.home-hero__meta span {
+  font-family: var(--font-display);
+  font-style: italic;
+  font-weight: 400;
+  color: var(--hero-accent);
+  font-size: 0.95rem;
+}
+
+/* -------- Image + directional fade -------- */
+.home-hero__media {
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  pointer-events: none;
+}
+
+/* Mobile — image sits behind copy at low opacity to keep the tone; the copy stays fully readable on the cream floor. */
+.home-hero__media .hero-slides {
+  position: absolute;
+  inset: 0;
+  border-radius: 0;
+  box-shadow: none;
+  background: transparent;
+  aspect-ratio: auto;
+  opacity: 0.28;
+  /* Fade from opaque at top to background at bottom so type sits on cream, not on the subject's face */
+  -webkit-mask-image: linear-gradient(180deg, rgba(0,0,0,1) 0%, rgba(0,0,0,0.85) 30%, rgba(0,0,0,0) 78%);
+          mask-image: linear-gradient(180deg, rgba(0,0,0,1) 0%, rgba(0,0,0,0.85) 30%, rgba(0,0,0,0) 78%);
+}
+.home-hero__media .hero-slide {
+  object-position: 50% 20%;
+}
+.home-hero__media .hero-slides__dots { display: none; }
+
+/* Desktop — image occupies the right half, fades cleanly into the cream on its left edge. No hard rectangle, no card. */
+@media (min-width: 900px) {
+  .home-hero__media {
+    left: auto;
+    right: 0;
+    top: 0;
+    bottom: 0;
+    width: 58%;
+  }
+  .home-hero__media .hero-slides {
+    opacity: 1;
+    /* Horizontal directional fade: transparent on the left (near text) → opaque on the right */
+    -webkit-mask-image: linear-gradient(90deg,
+      rgba(0,0,0,0) 0%,
+      rgba(0,0,0,0.15) 12%,
+      rgba(0,0,0,0.7) 34%,
+      rgba(0,0,0,1) 60%);
+            mask-image: linear-gradient(90deg,
+      rgba(0,0,0,0) 0%,
+      rgba(0,0,0,0.15) 12%,
+      rgba(0,0,0,0.7) 34%,
+      rgba(0,0,0,1) 60%);
+  }
+  .home-hero__media .hero-slide {
+    /* Keep the subject away from the fade edge — bias to the right side of the frame */
+    object-position: 78% 40%;
+  }
+}
+@media (min-width: 1280px) {
+  .home-hero__media { width: 54%; }
+  .home-hero__media .hero-slide { object-position: 70% 42%; }
+}
+
+/* Slideshow dots — restrained editorial ticks on desktop only */
+@media (min-width: 900px) {
+  .home-hero__media .hero-slides__dots {
+    display: flex;
+    right: 32px;
+    bottom: 32px;
+    left: auto;
+    transform: none;
+    background: transparent;
+    backdrop-filter: none;
+    padding: 0;
+    gap: 6px;
+  }
+  .home-hero__media .hero-slides__dot {
+    width: 22px; height: 2px;
+    border-radius: 0;
+    background: rgba(15, 34, 29, 0.35);
+  }
+  .home-hero__media .hero-slides__dot.is-active {
+    background: var(--hero-fg);
+    transform: none;
+  }
+}
+
+/* ============================================
+   Process (Care built around your goals)
+   ============================================ */
+.process {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 24px;
+}
+@media (min-width: 720px) {
+  .process { grid-template-columns: repeat(3, 1fr); gap: 32px; }
+}
+.process li {
+  background: #fff;
+  border-radius: var(--radius-md);
+  border: 1px solid var(--line-soft);
+  padding: 28px;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+.process__icon {
+  width: 44px; height: 44px;
+  border-radius: 12px;
+  background: var(--cream-100);
+  color: var(--brand-forest);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+}
+.process__step {
+  font-family: var(--font-sans);
+  font-size: 0.72rem;
+  font-weight: 600;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: var(--brand-sage);
+  margin: 0 0 4px;
+}
+.process h3 { font-size: 1.2rem; margin: 0 0 6px; }
+.process p  { margin: 0; font-size: 0.95rem; color: var(--ink-500); }
