@@ -1,6 +1,9 @@
 import { useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import Icon from '../components/Icon';
+import SEO from '../seo/SEO';
+import { breadcrumbSchema } from '../seo/jsonld';
+import { canonical } from '../seo/siteConfig';
 import './About.css';
 
 function useReveal() {
@@ -31,6 +34,20 @@ export default function About() {
 
   return (
     <>
+      <SEO
+        title="About Care and Protect Homecare — Compassionate In-home Therapy"
+        description="Meet the team behind Care and Protect Homecare. We deliver physical, occupational and speech therapy in the home, shaped around each person's routines, environment and goals."
+        path="/about"
+        keywords={[
+          'about care and protect homecare',
+          'in-home therapy team',
+          'homecare providers Carson CA',
+        ]}
+        jsonLd={breadcrumbSchema([
+          { name: 'Home', url: canonical('/') },
+          { name: 'About', url: canonical('/about') },
+        ])}
+      />
       {/* HERO — compact editorial, one photograph, balanced two columns */}
       <section className="about-hero" aria-labelledby="about-hero-heading">
         <div className="container about-hero__inner">

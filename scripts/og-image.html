@@ -1,0 +1,92 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Newsreader:ital,opsz,wght@0,6..72,500;1,6..72,400&family=Inter+Tight:wght@500;600&display=swap" rel="stylesheet" />
+  <style>
+    html, body { margin: 0; padding: 0; background: transparent; }
+    body {
+      width: 1200px;
+      height: 630px;
+      font-family: 'Inter Tight', system-ui, sans-serif;
+      color: #FBF7EF;
+      position: relative;
+      overflow: hidden;
+      background:
+        radial-gradient(ellipse 720px 420px at 88% 12%, rgba(123, 166, 149, 0.35), transparent 65%),
+        radial-gradient(ellipse 660px 380px at 8% 92%, rgba(229, 167, 138, 0.22), transparent 65%),
+        #123F35;
+    }
+    .frame {
+      position: absolute;
+      inset: 40px;
+      border: 1px solid rgba(251, 247, 239, 0.14);
+      border-radius: 22px;
+      pointer-events: none;
+    }
+    .content {
+      position: absolute;
+      inset: 0;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      padding: 80px 80px;
+      text-align: center;
+    }
+    .logo {
+      width: 720px;
+      height: auto;
+      display: block;
+      margin-bottom: 44px;
+    }
+    .eyebrow {
+      font-family: 'Inter Tight', sans-serif;
+      font-size: 20px;
+      font-weight: 600;
+      letter-spacing: 0.28em;
+      text-transform: uppercase;
+      color: rgba(251, 247, 239, 0.72);
+      margin: 0 0 20px;
+    }
+    .tagline {
+      font-family: 'Newsreader', Georgia, serif;
+      font-style: italic;
+      font-weight: 500;
+      font-size: 52px;
+      line-height: 1.15;
+      letter-spacing: -0.01em;
+      color: #FBF7EF;
+      margin: 0;
+    }
+    .tagline em {
+      font-style: italic;
+      color: #B9D3B8;
+    }
+    .footer-line {
+      position: absolute;
+      left: 0;
+      right: 0;
+      bottom: 64px;
+      text-align: center;
+      font-family: 'Inter Tight', sans-serif;
+      font-size: 16px;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: rgba(251, 247, 239, 0.55);
+      margin: 0;
+    }
+  </style>
+</head>
+<body>
+  <div class="frame"></div>
+  <div class="content">
+    <img src="../public/logo-on-dark.svg" alt="Care and Protect Homecare" class="logo" />
+    <p class="eyebrow">In-home Therapy</p>
+    <p class="tagline">A stronger tomorrow, <em>at home.</em></p>
+  </div>
+  <p class="footer-line">Physical · Occupational · Speech Therapy</p>
+</body>
+</html>

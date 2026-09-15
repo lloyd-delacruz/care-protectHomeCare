@@ -2,6 +2,9 @@ import { Link } from 'react-router-dom';
 import CTAStrip from '../components/CTAStrip';
 import FAQ from '../components/FAQ';
 import Icon from '../components/Icon';
+import SEO from '../seo/SEO';
+import { breadcrumbSchema, faqSchema, serviceSchema } from '../seo/jsonld';
+import { canonical } from '../seo/siteConfig';
 import './ServicePage.css';
 
 const supportAreas = [
@@ -33,6 +36,32 @@ const faqs = [
 export default function OccupationalTherapy() {
   return (
     <>
+      <SEO
+        title="In-home Occupational Therapy — Everyday Independence"
+        description="In-home occupational therapy in Carson, CA and greater Los Angeles. Support with dressing, grooming, meal preparation, home management, adaptive equipment and motor/cognitive function."
+        path="/services/occupational-therapy"
+        keywords={[
+          'in-home occupational therapy',
+          'occupational therapy Carson CA',
+          'adaptive equipment training',
+          'daily living skills therapy',
+        ]}
+        jsonLd={[
+          breadcrumbSchema([
+            { name: 'Home', url: canonical('/') },
+            { name: 'Services', url: canonical('/services') },
+            { name: 'Occupational Therapy', url: canonical('/services/occupational-therapy') },
+          ]),
+          serviceSchema({
+            name: 'In-home Occupational Therapy',
+            description:
+              'In-home occupational therapy supporting dressing, grooming, meal preparation, home management, adaptive equipment and motor and cognitive function.',
+            url: canonical('/services/occupational-therapy'),
+            serviceType: 'OccupationalTherapy',
+          }),
+          faqSchema(faqs),
+        ]}
+      />
       <section className="svc-hero svc-hero--ot" aria-labelledby="ot-hero">
         <figure className="svc-hero__figure" aria-hidden="true">
           <img

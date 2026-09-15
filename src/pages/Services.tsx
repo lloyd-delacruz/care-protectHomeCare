@@ -1,6 +1,9 @@
 import { Link } from 'react-router-dom';
 import CTAStrip from '../components/CTAStrip';
 import Icon from '../components/Icon';
+import SEO from '../seo/SEO';
+import { breadcrumbSchema, serviceSchema } from '../seo/jsonld';
+import { canonical } from '../seo/siteConfig';
 import './Services.css';
 
 const services = [
@@ -30,6 +33,44 @@ const services = [
 export default function Services() {
   return (
     <>
+      <SEO
+        title="In-home Therapy Services — Physical, Occupational & Speech"
+        description="Explore in-home Physical, Occupational and Speech Therapy from Care and Protect Homecare. Personalized, evidence-based care delivered in Carson, Long Beach, Torrance and the wider Los Angeles area."
+        path="/services"
+        keywords={[
+          'in-home therapy services',
+          'physical therapy at home',
+          'occupational therapy at home',
+          'speech therapy at home',
+        ]}
+        jsonLd={[
+          breadcrumbSchema([
+            { name: 'Home', url: canonical('/') },
+            { name: 'Services', url: canonical('/services') },
+          ]),
+          serviceSchema({
+            name: 'In-home Physical Therapy',
+            description:
+              'Personalized in-home physical therapy to build strength, improve mobility and balance, manage pain and support recovery.',
+            url: canonical('/services/physical-therapy'),
+            serviceType: 'PhysicalTherapy',
+          }),
+          serviceSchema({
+            name: 'In-home Occupational Therapy',
+            description:
+              'In-home occupational therapy for dressing, grooming, meal preparation, home management and adaptive equipment.',
+            url: canonical('/services/occupational-therapy'),
+            serviceType: 'OccupationalTherapy',
+          }),
+          serviceSchema({
+            name: 'In-home Speech Therapy',
+            description:
+              'In-home speech therapy for speech, language, voice, cognitive-communication and swallowing.',
+            url: canonical('/services/speech-therapy'),
+            serviceType: 'SpeechTherapy',
+          }),
+        ]}
+      />
       <section className="services-hero" aria-labelledby="svc-hero">
         <figure className="services-hero__figure" aria-hidden="true">
           <img

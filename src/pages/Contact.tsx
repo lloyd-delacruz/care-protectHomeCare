@@ -1,6 +1,10 @@
 import { useState } from 'react';
 import { Link } from 'react-router-dom';
 import Icon from '../components/Icon';
+import SEO from '../seo/SEO';
+import { breadcrumbSchema, medicalBusinessSchema } from '../seo/jsonld';
+import { canonical } from '../seo/siteConfig';
+import { useConsent } from '../consent/ConsentContext';
 import './Contact.css';
 
 type Method = 'email' | 'phone' | '';
@@ -45,6 +49,8 @@ export default function Contact() {
   const [values, setValues] = useState<FormState>(initial);
   const [errors, setErrors] = useState<Partial<Record<keyof FormState, string>>>({});
   const [status, setStatus] = useState<Status>('idle');
+  const { decisions, openBanner } = useConsent();
+  const mapAllowed = decisions.marketing;
 
   function validate(v: FormState) {
     const e: Partial<Record<keyof FormState, string>> = {};
@@ -103,6 +109,23 @@ export default function Contact() {
 
   return (
     <>
+      <SEO
+        title="Contact Care and Protect Homecare — Carson, CA"
+        description="Reach Care and Protect Homecare for in-home Physical, Occupational and Speech Therapy in Carson, Long Beach, Torrance and the greater Los Angeles area. Call, email or send a message."
+        path="/contact"
+        keywords={[
+          'contact care and protect homecare',
+          'homecare Carson CA',
+          'in-home therapy contact',
+        ]}
+        jsonLd={[
+          breadcrumbSchema([
+            { name: 'Home', url: canonical('/') },
+            { name: 'Contact', url: canonical('/contact') },
+          ]),
+          medicalBusinessSchema(),
+        ]}
+      />
       {/* 1. Compact hero */}
       <section className="contact-hero" aria-labelledby="contact-hero-heading">
         <div className="container contact-hero__inner">
@@ -409,13 +432,40 @@ export default function Contact() {
           </div>
 
           <div className="contact-map__frame">
-            <iframe
-              title={`Map of Care and Protect Homecare at ${ADDRESS}`}
-              src={MAP_EMBED}
-              loading="lazy"
-              referrerPolicy="no-referrer-when-downgrade"
-              allowFullScreen
-            />
+            {mapAllowed ? (
+              <iframe
+                title={`Map of Care and Protect Homecare at ${ADDRESS}`}
+                src={MAP_EMBED}
+                loading="lazy"
+                referrerPolicy="no-referrer-when-downgrade"
+                allowFullScreen
+              />
+            ) : (
+              <div className="contact-map__consent" role="group" aria-label="Map placeholder">
+                <p className="contact-map__consent-title">Interactive map is off</p>
+                <p className="contact-map__consent-text">
+                  We embed Google Maps to show our Carson office. Google may set its
+                  own cookies when the map loads, so we keep it off until you agree.
+                </p>
+                <div className="contact-map__consent-actions">
+                  <button
+                    type="button"
+                    className="btn btn--forest"
+                    onClick={openBanner}
+                  >
+                    Load map &amp; allow marketing cookies
+                  </button>
+                  <a
+                    className="btn btn--ghost"
+                    href={MAP_LINK}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                  >
+                    Open in Google Maps
+                  </a>
+                </div>
+              </div>
+            )}
           </div>
         </div>
       </section>

@@ -2,6 +2,9 @@ import { Link } from 'react-router-dom';
 import CTAStrip from '../components/CTAStrip';
 import FAQ from '../components/FAQ';
 import Icon from '../components/Icon';
+import SEO from '../seo/SEO';
+import { breadcrumbSchema, faqSchema, serviceSchema } from '../seo/jsonld';
+import { canonical } from '../seo/siteConfig';
 import './ServicePage.css';
 
 const focusAreas = [
@@ -29,6 +32,32 @@ const faqs = [
 export default function PhysicalTherapy() {
   return (
     <>
+      <SEO
+        title="In-home Physical Therapy — Strength, Mobility, Recovery"
+        description="In-home physical therapy in Carson, CA and the greater Los Angeles area. Personalized plans for post-surgery recovery, injury rehabilitation, balance, pain management and chronic conditions."
+        path="/services/physical-therapy"
+        keywords={[
+          'in-home physical therapy',
+          'physical therapy Carson CA',
+          'post-surgery rehab at home',
+          'fall prevention therapy',
+        ]}
+        jsonLd={[
+          breadcrumbSchema([
+            { name: 'Home', url: canonical('/') },
+            { name: 'Services', url: canonical('/services') },
+            { name: 'Physical Therapy', url: canonical('/services/physical-therapy') },
+          ]),
+          serviceSchema({
+            name: 'In-home Physical Therapy',
+            description:
+              'Personalized in-home physical therapy for strength, mobility, balance, pain management and recovery after surgery or injury.',
+            url: canonical('/services/physical-therapy'),
+            serviceType: 'PhysicalTherapy',
+          }),
+          faqSchema(faqs),
+        ]}
+      />
       <section className="svc-hero svc-hero--pt" aria-labelledby="pt-hero">
         <figure className="svc-hero__figure" aria-hidden="true">
           <img

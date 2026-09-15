@@ -3,11 +3,31 @@ import HeroSlideshow from '../components/HeroSlideshow';
 import ServiceCard from '../components/ServiceCard';
 import CTAStrip from '../components/CTAStrip';
 import Icon from '../components/Icon';
+import SEO from '../seo/SEO';
+import {
+  medicalBusinessSchema,
+  organizationSchema,
+  websiteSchema,
+} from '../seo/jsonld';
 import './Home.css';
 
 export default function Home() {
   return (
     <>
+      <SEO
+        title="In-home Physical, Occupational and Speech Therapy in Carson, CA"
+        description="Care and Protect Homecare provides personalized in-home physical, occupational and speech therapy across Carson, Long Beach, Torrance and Los Angeles County. Compassionate, evidence-based care delivered where daily life happens."
+        path="/"
+        keywords={[
+          'in-home physical therapy',
+          'in-home occupational therapy',
+          'in-home speech therapy',
+          'home health therapy Carson CA',
+          'home therapy Los Angeles',
+          'homecare rehabilitation',
+        ]}
+        jsonLd={[organizationSchema(), websiteSchema(), medicalBusinessSchema()]}
+      />
       {/* HERO */}
       <section className="home-hero" aria-labelledby="hero-heading">
         <div className="home-hero__media" aria-hidden="true">

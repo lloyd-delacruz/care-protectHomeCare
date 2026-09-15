@@ -1,4 +1,5 @@
 import { Link } from 'react-router-dom';
+import { useConsent } from '../consent/ConsentContext';
 import './Footer.css';
 
 const ADDRESS_LINES = ['140 E 227th St', 'Carson, California 90745, USA'];
@@ -10,6 +11,7 @@ const PHONES = [
 const EMAIL = 'careandprotectrehab@gmail.com';
 
 export default function Footer() {
+  const { openBanner } = useConsent();
   return (
     <footer className="site-footer">
       <div className="container site-footer__inner">
@@ -54,7 +56,12 @@ export default function Footer() {
       <div className="site-footer__bottom">
         <div className="container site-footer__bottom-inner">
           <span>© {new Date().getFullYear()} Care and Protect Homecare. All rights reserved.</span>
-          <span>People. Purpose. Possibilities.</span>
+          <nav aria-label="Legal" className="site-footer__legal">
+            <Link to="/cookies">Cookie Notice</Link>
+            <button type="button" className="site-footer__legal-btn" onClick={openBanner}>
+              Cookie settings
+            </button>
+          </nav>
         </div>
       </div>
     </footer>

@@ -1,0 +1,81 @@
+.cookie-policy h1 {
+  font-size: clamp(2rem, 2.6vw + 0.8rem, 2.8rem);
+  letter-spacing: -0.02em;
+  line-height: 1.1;
+  margin: 8px 0 24px;
+  max-width: 22ch;
+}
+.cookie-policy h2 {
+  margin: 40px 0 12px;
+  font-size: clamp(1.4rem, 1.4vw + 0.6rem, 1.7rem);
+}
+.cookie-policy h3 {
+  margin: 24px 0 8px;
+  font-size: 1.15rem;
+}
+.cookie-policy__lede {
+  font-size: 1.06rem;
+  line-height: 1.7;
+  color: var(--ink-500);
+  max-width: 62ch;
+  margin: 0 0 24px;
+}
+.cookie-policy__lede em { color: var(--brand-forest); font-style: italic; }
+
+.cookie-policy p {
+  font-size: 1rem;
+  line-height: 1.65;
+  color: var(--ink-500);
+  max-width: 68ch;
+}
+.cookie-policy code {
+  background: var(--cream-100);
+  padding: 1px 6px;
+  border-radius: 6px;
+  font-size: 0.9em;
+  color: var(--ink-800);
+}
+
+.cookie-policy__actions {
+  margin: 8px 0 16px;
+}
+
+.cookie-policy__categories { margin-top: 8px; }
+
+.cookie-policy__table-wrap {
+  overflow-x: auto;
+  border: 1px solid var(--line-soft);
+  border-radius: var(--radius-md);
+  margin: 12px 0 24px;
+}
+.cookie-policy__table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 0.92rem;
+  min-width: 640px;
+}
+.cookie-policy__table th,
+.cookie-policy__table td {
+  padding: 12px 14px;
+  text-align: left;
+  vertical-align: top;
+  border-bottom: 1px solid var(--line-soft);
+  color: var(--ink-500);
+  line-height: 1.5;
+}
+.cookie-policy__table thead th {
+  background: var(--cream-50);
+  color: var(--ink-800);
+  font-family: var(--font-sans);
+  font-weight: 600;
+  font-size: 0.78rem;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+}
+.cookie-policy__table tbody tr:last-child td { border-bottom: 0; }
+
+.cookie-policy__empty {
+  color: var(--ink-400);
+  font-style: italic;
+  margin: 8px 0 24px;
+}

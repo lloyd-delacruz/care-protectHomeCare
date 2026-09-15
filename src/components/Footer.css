@@ -132,3 +132,28 @@
     gap: 8px;
   }
 }
+
+.site-footer__legal {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 20px;
+  align-items: center;
+}
+.site-footer__legal a,
+.site-footer__legal-btn {
+  color: rgba(255, 255, 255, 0.55);
+  font-size: 0.9rem;
+  line-height: 1.5;
+  background: none;
+  border: 0;
+  padding: 0;
+  cursor: pointer;
+  font-family: inherit;
+  transition: color 200ms var(--ease-out);
+}
+.site-footer__legal a:hover,
+.site-footer__legal a:focus-visible,
+.site-footer__legal-btn:hover,
+.site-footer__legal-btn:focus-visible {
+  color: #fff;
+}

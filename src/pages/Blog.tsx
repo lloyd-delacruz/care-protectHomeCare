@@ -2,6 +2,9 @@ import { useEffect, useMemo, useState } from 'react';
 import { Link } from 'react-router-dom';
 import Icon from '../components/Icon';
 import CTAStrip from '../components/CTAStrip';
+import SEO from '../seo/SEO';
+import { breadcrumbSchema } from '../seo/jsonld';
+import { canonical } from '../seo/siteConfig';
 import { POSTS, type BlogPost } from './blogData';
 import './Blog.css';
 
@@ -51,6 +54,21 @@ export default function Blog() {
 
   return (
     <>
+      <SEO
+        title="Journal — Notes on Care, from the Home"
+        description="Essays, guides and clinical perspective on in-home physical, occupational and speech therapy — written for families supporting a loved one at home."
+        path="/blog"
+        keywords={[
+          'homecare blog',
+          'in-home therapy articles',
+          'caregiver guides',
+          'aging in place resources',
+        ]}
+        jsonLd={breadcrumbSchema([
+          { name: 'Home', url: canonical('/') },
+          { name: 'Journal', url: canonical('/blog') },
+        ])}
+      />
       {/* HERO */}
       <section className="blog-hero" aria-labelledby="blog-hero-heading">
         <div className="container blog-hero__inner">

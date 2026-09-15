@@ -2,6 +2,9 @@ import { Link } from 'react-router-dom';
 import CTAStrip from '../components/CTAStrip';
 import FAQ from '../components/FAQ';
 import Icon from '../components/Icon';
+import SEO from '../seo/SEO';
+import { breadcrumbSchema, faqSchema, serviceSchema } from '../seo/jsonld';
+import { canonical } from '../seo/siteConfig';
 import './ServicePage.css';
 
 const areas = [
@@ -28,6 +31,32 @@ const faqs = [
 export default function SpeechTherapy() {
   return (
     <>
+      <SEO
+        title="In-home Speech Therapy — Communication & Swallowing"
+        description="In-home speech therapy in Carson, CA and greater Los Angeles. Support for speech, language, voice, cognitive-communication and swallowing — including stroke recovery, developmental delay and speech disorders."
+        path="/services/speech-therapy"
+        keywords={[
+          'in-home speech therapy',
+          'speech therapy Carson CA',
+          'swallowing therapy at home',
+          'stroke speech rehabilitation',
+        ]}
+        jsonLd={[
+          breadcrumbSchema([
+            { name: 'Home', url: canonical('/') },
+            { name: 'Services', url: canonical('/services') },
+            { name: 'Speech Therapy', url: canonical('/services/speech-therapy') },
+          ]),
+          serviceSchema({
+            name: 'In-home Speech Therapy',
+            description:
+              'In-home speech therapy for speech, language, voice, cognitive-communication and swallowing — supporting stroke recovery, developmental delay and speech disorders.',
+            url: canonical('/services/speech-therapy'),
+            serviceType: 'SpeechTherapy',
+          }),
+          faqSchema(faqs),
+        ]}
+      />
       <section className="svc-hero svc-hero--sp" aria-labelledby="sp-hero">
         <figure className="svc-hero__figure" aria-hidden="true">
           <img

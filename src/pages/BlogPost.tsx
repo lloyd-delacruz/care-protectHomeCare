@@ -2,8 +2,16 @@ import { useEffect } from 'react';
 import { useParams, Link, Navigate } from 'react-router-dom';
 import Icon from '../components/Icon';
 import CTAStrip from '../components/CTAStrip';
+import SEO from '../seo/SEO';
+import { blogPostingSchema, breadcrumbSchema } from '../seo/jsonld';
+import { canonical } from '../seo/siteConfig';
 import { POSTS } from './blogData';
 import './Blog.css';
+
+function isoDate(human: string): string {
+  const d = new Date(human);
+  return isNaN(d.getTime()) ? new Date().toISOString() : d.toISOString();
+}
 
 function useReveal() {
   useEffect(() => {
@@ -40,8 +48,35 @@ export default function BlogPost() {
   const prev = idx > 0 ? POSTS[idx - 1] : null;
   const next = idx < POSTS.length - 1 ? POSTS[idx + 1] : null;
 
+  const postUrl = canonical(`/blog/${post.slug}`);
+  const publishedIso = isoDate(post.date);
+
   return (
     <>
+      <SEO
+        title={post.title}
+        description={post.excerpt}
+        path={`/blog/${post.slug}`}
+        image={post.image}
+        type="article"
+        publishedTime={publishedIso}
+        keywords={[post.category, 'homecare', 'in-home therapy']}
+        jsonLd={[
+          breadcrumbSchema([
+            { name: 'Home', url: canonical('/') },
+            { name: 'Journal', url: canonical('/blog') },
+            { name: post.title, url: postUrl },
+          ]),
+          blogPostingSchema({
+            title: post.title,
+            description: post.excerpt,
+            url: postUrl,
+            image: post.image,
+            datePublished: publishedIso,
+            author: post.author,
+          }),
+        ]}
+      />
       {/* HERO */}
       <article>
         <header className="post-hero">
